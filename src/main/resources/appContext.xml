@@ -37,6 +37,7 @@
             <list>
                 <value>domain.User</value>
                 <value>domain.Payment</value>
+                <value>domain.Debt</value>
             </list>
         </property>
         <property name="hibernateProperties">

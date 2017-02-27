@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import repository.Optimizer;
 import service.PaymentService;
 import service.UserService;
 
@@ -25,6 +26,9 @@ public class TestController {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private Optimizer optimizer;
 
     private static final Logger logger = Logger.getLogger(TestController.class);
 
@@ -86,5 +90,11 @@ public class TestController {
             logger.error("Transaction failed from user " + paymentDTO.getUserFrom() + " to users " + Arrays.toString(paymentDTO.getUsersTo()));
             return new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "optimize/", method = RequestMethod.GET)
+    public String optimize() {
+        optimizer.calculateDebts();
+        return "Optimized!";
     }
 }
