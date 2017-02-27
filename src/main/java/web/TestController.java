@@ -67,6 +67,7 @@ public class TestController {
     @RequestMapping(value = "payment/", method = RequestMethod.POST)
     public ResponseEntity<Boolean> makeGroupPayment(@RequestBody PaymentDTO paymentDTO) {
         boolean success = false;
+        paymentDTO.validate();
         try{
             success = paymentService.makeGroupPayment(paymentDTO);
         } catch (RuntimeException e) {

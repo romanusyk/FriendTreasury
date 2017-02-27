@@ -48,7 +48,7 @@ public class SimplePaymentService implements PaymentService {
     @Transactional
     public boolean makeGroupPayment(PaymentDTO paymentDTO) {
         User userFrom = userDAO.get(paymentDTO.getUserFrom());
-        BigDecimal amountPerUser = paymentDTO.getAmount().divide(new BigDecimal(paymentDTO.getUsersTo().length + 1), 2, BigDecimal.ROUND_CEILING);
+        BigDecimal amountPerUser = paymentDTO.getAmount().divide(new BigDecimal(paymentDTO.getUsersTo().length + paymentDTO.getShallIPayForMyself()), 2, BigDecimal.ROUND_CEILING);
         boolean success = true;
         for (Integer userToID : paymentDTO.getUsersTo()) {
             User userTo = userDAO.get(userToID);
