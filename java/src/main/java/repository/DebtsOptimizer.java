@@ -11,7 +11,10 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import service.PaymentService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -21,13 +24,26 @@ import java.util.*;
 @Service("optimizer")
 public class DebtsOptimizer implements Optimizer {
 
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    @PersistenceContext
+    protected EntityManager entityManager;
+
     @Autowired
-    protected SessionFactory sessionFactory;
+    private PaymentService paymentService;
 
     @Override
     public Session getSession() throws HibernateException {
-        return sessionFactory.getCurrentSession();
+        return entityManager.unwrap(Session.class);
     }
+
+//    private PaymentService
 
     static final Logger logger = Logger.getLogger(DebtsOptimizer.class);
 
@@ -41,14 +57,8 @@ public class DebtsOptimizer implements Optimizer {
 
         Map<Integer, Map<Integer, BigDecimal>> result = new HashMap<>();
 
-        Query<Debt> q = getSession().createQuery(
-                        "SELECT new Debt(P.userFrom, P.userTo, sum(P.amount)) " +
-                        "FROM Payment P " +
-                        "GROUP BY P.userFrom, P.userTo", Debt.class);
-
-
         int count = 0;
-        List<Debt> resultList = q.list();
+        List<Debt> resultList = paymentService.getDebts();
         for (Debt debt : resultList) {
             Integer u = debt.getUserFrom().getId();
             Integer v = debt.getUserTo().getId();
@@ -187,10 +197,6 @@ public class DebtsOptimizer implements Optimizer {
         }
 
         saveDebts(graph);
-    }
-
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
     }
 
 }

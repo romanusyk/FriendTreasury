@@ -2,31 +2,29 @@ package service;
 
 import domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import repository.DAO;
-import repository.UserDAO;
+import repository.UserRepository;
 
-import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by romm on 01.02.17.
+ * Created by romm on 28.02.17.
  */
-@Service("userService")
-public class SimpleUserService implements UserService {
+@Service("springUserService")
+@Qualifier("springUserServiceBean")
+public class SpringUserService implements UserService {
 
     @Autowired
-    private DAO<User, Integer> userDAO;
+    UserRepository userRepository;
 
     @Override
     public void init() {
-        userDAO.create(new User("Roma"));
-        userDAO.create(new User("Vova"));
-        userDAO.create(new User("Jura"));
-        userDAO.create(new User("Geka"));
+        userRepository.save(new User("Roma"));
+        userRepository.save(new User("Vova"));
+        userRepository.save(new User("Jura"));
+        userRepository.save(new User("Geka"));
     }
 
     @Override
@@ -34,7 +32,7 @@ public class SimpleUserService implements UserService {
         List<User> users = new LinkedList<>();
         for (String username : usernames) {
             User u = new User(username);
-            u.setId(userDAO.create(u));
+            u = userRepository.save(u);
             users.add(u);
         }
         return users;
@@ -42,13 +40,12 @@ public class SimpleUserService implements UserService {
 
     @Override
     public User getUserByID(Integer id) {
-        return userDAO.get(id);
+        return userRepository.findOne(id);
     }
 
     @Override
-    @Transactional
     public void createUser(User user) {
-        user.setId(userDAO.create(user));
+        userRepository.save(user);
     }
 
 }

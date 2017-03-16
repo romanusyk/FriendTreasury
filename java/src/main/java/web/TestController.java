@@ -4,13 +4,17 @@ import domain.PaymentDTO;
 import domain.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import repository.Optimizer;
 import service.PaymentService;
+import service.SpringUserService;
 import service.UserService;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -21,11 +25,16 @@ import java.util.*;
 @RestController
 public class TestController {
 
-    @Autowired
-    private UserService userService;
+//    @Autowired
+//    @Qualifier("simpleUserServiceBean")
+//    private UserService userService;
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    @Qualifier("springUserServiceBean")
+    private UserService userService;
 
     @Autowired
     private Optimizer optimizer;
