@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/context
@@ -11,7 +11,7 @@
            http://www.springframework.org/schema/tx
            http://www.springframework.org/schema/tx/spring-tx.xsd
            http://www.springframework.org/schema/mvc
-           http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+           http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd"
 >
 
     <context:component-scan base-package="service"/>
@@ -22,15 +22,14 @@
     <context:annotation-config />
 
     <bean id="dataSource"
-          class="org.apache.commons.dbcp.BasicDataSource"
-          destroy-method="close">
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://localhost:3306/friend_treasury" />
         <property name="username" value="root" />
         <property name="password" value="root" />
     </bean>
 
-    <bean id="hibernate5AnnotatedSessionFactory"
+    <!--<bean id="hibernate5AnnotatedSessionFactory"
           class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="annotatedClasses">
@@ -47,13 +46,33 @@
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
             </props>
         </property>
+    </bean>-->
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="domain"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true" />
+                <property name="showSql" value="false"/>
+            </bean>
+        </property>
+        <property name="jpaProperties">
+            <value>
+                hibernate.dialect=org.hibernate.dialect.MySQLDialect
+                hibernate.hbm2ddl.auto=create
+            </value>
+        </property>
     </bean>
 
     <bean id="transactionManager"
-          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="hibernate5AnnotatedSessionFactory" />
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="false"/>
+
+    <jpa:repositories base-package="repository" />
 
 </beans>
