@@ -48,8 +48,8 @@ public class TestController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String hello() {
-        userService.init();
-        paymentService.init();
+//        userService.init();
+//        paymentService.init();
         return "Hello!";
     }
 
