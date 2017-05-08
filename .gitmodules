@@ -1,0 +1,3 @@
+[submodule "FTServer"]
+	path = FTServer
+	url = https://github.com/Romm17/FTServer
