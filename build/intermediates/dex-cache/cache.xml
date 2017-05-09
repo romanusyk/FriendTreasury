@@ -3,11 +3,20 @@
 
     <item
         is-multidex="true"
+        jar="/home/romm/android-studio/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/home/romm/code/Java/FriendTreasury/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.2.4_2a8ee34627868e89588f420884cfe0686bae3378/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/romm/code/Java/FriendTreasury/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="cc190655a4321fc49208eb12596d87ca91229349">
+        sha1="b36118a01c99851a661b5865ea6c703721e69fdc">
         <dex dex="/home/romm/code/Java/FriendTreasury/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_42d7dd2c4c6de4a2af47593d3792d6139d340c3f/classes.dex" />
     </item>
     <item
@@ -18,15 +27,6 @@
         revision="25.0.2"
         sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
         <dex dex="/home/romm/code/Java/FriendTreasury/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_ea0586f84fdceabf2825f2c8fd4db5b7ab82f35d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/android-studio/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a60a5e993c98c864010053cb901b7eab25306568">
-        <dex dex="/home/romm/code/Java/FriendTreasury/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.2.4_2a8ee34627868e89588f420884cfe0686bae3378/classes.dex" />
     </item>
 
 </items>
