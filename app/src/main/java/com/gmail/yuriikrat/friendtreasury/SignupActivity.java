@@ -28,7 +28,6 @@ public class SignupActivity extends AppCompatActivity {
 
     private MyApplication app;
     private RequestQueue queue;
-    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,6 @@ public class SignupActivity extends AppCompatActivity {
         app = (MyApplication) getApplicationContext();
 
         queue = Volley.newRequestQueue(this);
-        url = "http://10.0.2.2:8080/";
     }
 
     public void register(View view) {
@@ -57,7 +55,7 @@ public class SignupActivity extends AppCompatActivity {
         Log.i("user", jsonUser);
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url + "users",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, app.URL + "users",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

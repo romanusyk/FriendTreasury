@@ -35,8 +35,9 @@ public class MainActivity extends AppCompatActivity
 //
 //    private String url = "http://localhost:8080/users/1";
 
+    private MyApplication app;
+
     private RequestQueue queue;
-    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,10 @@ public class MainActivity extends AppCompatActivity
 //        getUser();
 
         // Instantiate the RequestQueue.
+
+        app = (MyApplication) getApplicationContext();
+
         queue = Volley.newRequestQueue(this);
-        url = "http://10.0.2.2:8080/";
     }
 
     @Override
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.group1) {
 
             // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "user_debts/2",
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, app.URL + "user_debts/2",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.group2) {
 
             // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "users/5",
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, app.URL + "users/5",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -127,7 +130,7 @@ public class MainActivity extends AppCompatActivity
             Log.i("user", jsonUser);
 
             // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, url + "users",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, app.URL + "users",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -158,7 +161,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_profile) {
 
             // Request a string response from the provided URL.
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, app.URL,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
