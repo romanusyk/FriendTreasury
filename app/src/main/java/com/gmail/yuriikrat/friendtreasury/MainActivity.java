@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -19,8 +20,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.gmail.yuriikrat.friendtreasury.domain.User;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,7 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         // Instantiate the RequestQueue.
         queue = Volley.newRequestQueue(this);
-        url = "http://10.0.2.2:8080/fun/";
+        url = "http://10.0.2.2:8080/";
     }
 
     @Override
@@ -74,9 +80,80 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.group1) {
 
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "user_debts/2",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            Log.i("UD/2:", response);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("UD/2:", error.toString());
+                }
+            });
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest);
+
         } else if (id == R.id.group2) {
 
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url + "users/5",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            Gson gson = new Gson();
+                            User user = gson.fromJson(response, User.class);
+                            Log.i("U/2:", user.toString());
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("U/2:", error.toString());
+                }
+            });
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest);
+
         } else if (id == R.id.group3) {
+
+            Gson gson = new Gson();
+            User user = new User("NewUser");
+            final String jsonUser = gson.toJson(user);
+
+            Log.i("user", jsonUser);
+
+            // Request a string response from the provided URL.
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, url + "users",
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            Log.i("UP:", response);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("U/2:", error.toString());
+                }
+            }) {
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    return jsonUser.getBytes();
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String,String> params = new HashMap();
+                    params.put("Content-Type","application/json");
+                    return params;
+                }
+            };
+            // Add the request to the RequestQueue.
+            queue.add(stringRequest);
 
         } else if (id == R.id.nav_profile) {
 

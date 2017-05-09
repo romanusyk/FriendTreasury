@@ -3,165 +3,30 @@
 
     <item
         is-multidex="true"
-        jar="/home/romm/.android/build-cache/99036ed8ea754bc4f4049e4a93e4a95ae53b92a7/output/jars/classes.jar"
+        jar="/home/romm/code/Java/FriendTreasury/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="152de8da301561dcb0946471697a420d8f7a68c5">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_00ecb8306e1a5edf3567fdc116abedf5013ac7bc/classes.dex" />
+        sha1="cc190655a4321fc49208eb12596d87ca91229349">
+        <dex dex="/home/romm/code/Java/FriendTreasury/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_42d7dd2c4c6de4a2af47593d3792d6139d340c3f/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/romm/Android/Sdk/extras/m2repository/com/android/support/constraint/constraint-layout-solver/1.0.1/constraint-layout-solver-1.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="1ad79631209e77b0a2730fc112b4cc0c66a95132">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/constraint-layout-solver-1.0.1_fa70b5257d973de98bdceee438fd5290bc10f654/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/bde9eadbd278f8ffb39fda8a1af5f8548e207d31/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a16076a7fa7572e32e2a78ce2d490a571941bf7b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/fe874d3da0703dd410e17d19c3fa88451833df44/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="e51c2f662bb72419632af5192553c37e33890a99">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_28ac2c5a1f9b58420116aac3fa312eacfedddbc2/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/4cd26951a94b33764455d5c6b201df57cde31afc/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7113302c965566b66df46c6ca75ea301576114a5">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1fe938382f459e740b20f1bf960a797da4c538c1/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/c44df630c6506f1dfdfcf9d4f968c50d12c96d34/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0699e20611fdf01cd015733b67cc3c614666b59d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ece456818840d0b328ffbf687847f7d7fa19c584">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_1d412da606067b9030a4e64bb58f3f166ee9b501/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/825367452272f5d6728c5368aa3fbc04ead9d438/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="cb454b52545859ed2f24a6c01366805b0fa04b22">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_030f361164e9eb128de4b4cd36275bafb2babe56/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/86a6afd03f47d0b5405883d493e811c8edd26272/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7b4f11423cc9284b202ce2a1d463caf3a61cc0a0/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/6f9ae7948b7d06268a400c27e32a2fe184db82fb/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="810f41e5b7fd99f196ebeabe865ba2c54e7e76dc">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_91567f0219b9f17d0c23cc297cf8807df8b2a8ad/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/2714516e645da6bc61fe3f1be7b95d2e96638513/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ee394a892dd21c03a528139c1e8d4e0e1264ac84">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b4e7f02bbd242d10f40fab4b7498821b5ff8a239/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="/home/romm/code/Java/FriendTreasury/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_376615134fa272ab07c6f93c4d33dd0d17b77447/classes.dex" />
+        <dex dex="/home/romm/code/Java/FriendTreasury/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_ea0586f84fdceabf2825f2c8fd4db5b7ab82f35d/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/romm/.android/build-cache/86a4d60804262985a5649a9c11af19dd1fe588bf/output/jars/classes.jar"
+        jar="/home/romm/android-studio/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="702d339bc0a81d21354cd7e2cf2b67225fa4a16c">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_2f257e47eacebea157306de75004f12d545f223f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/9286ef3437bb6e2c70416951ac3fadc07949d75e/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_69c78074015a881fdc2dbe3a6e9267f6f55f1013/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/35f2bdf1d45bd371b208ad160e001053d9ee4bfb/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ea6a989b83d19b1b461281e0475a6cd6514897f8">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ae3c0c7208c500365ae253d3c1be886ab1d3f781/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/76708e64bfdccfa64afc776541afc9a026f6a490/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1933d22e008ef538684cc8a4d04ee2f4a48d9cd4/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.2.0/support-annotations-25.2.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.2.0_f8bbf1a4b6837c20fe4c806a7e0c7d0480c5fa0e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/romm/.android/build-cache/08c8d1b016f2218845a2e02b95f3aa5809b5a70b/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
-        <dex dex="/home/romm/code/Java/FriendTreasury/android/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6965fc74ed5fd85a772356807f0fce7336e53b21/classes.dex" />
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="/home/romm/code/Java/FriendTreasury/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.2.4_2a8ee34627868e89588f420884cfe0686bae3378/classes.dex" />
     </item>
 
 </items>
