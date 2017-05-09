@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.group3) {
 
             Gson gson = new Gson();
-            User user = new User("NewUser");
+            User user = new User("123456789012", "NewUser", "111");
             final String jsonUser = gson.toJson(user);
 
             Log.i("user", jsonUser);

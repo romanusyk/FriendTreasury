@@ -26,6 +26,7 @@ import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
 
+    private MyApplication app;
     private RequestQueue queue;
     private String url;
 
@@ -34,15 +35,23 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        app = (MyApplication) getApplicationContext();
+
         queue = Volley.newRequestQueue(this);
         url = "http://10.0.2.2:8080/";
     }
 
     public void register(View view) {
 
-        Gson gson = new Gson();
         TextView textView = (TextView)findViewById(R.id.input_name);
-        User user = new User(textView.getText().toString());
+        final String username = textView.getText().toString();
+        textView = (TextView)findViewById(R.id.input_mobile);
+        String phone = textView.getText().toString();
+        textView = (TextView)findViewById(R.id.input_password);
+        String pass = textView.getText().toString();
+
+        Gson gson = new Gson();
+        User user = new User(phone, username, pass);
         final String jsonUser = gson.toJson(user);
 
         Log.i("user", jsonUser);
@@ -54,6 +63,9 @@ public class SignupActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Log.i("UP:", response);
+                        Integer id = Integer.parseInt(response);
+                        app.setId(id);
+                        app.setUsername(username);
                     }
                 }, new Response.ErrorListener() {
             @Override

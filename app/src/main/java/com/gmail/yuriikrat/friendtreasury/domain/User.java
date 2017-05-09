@@ -11,13 +11,34 @@ public class User {
 
     private Integer id;
 
+    private String phone;
+
     private String username;
+
+    private String password;
+
+    @Override
+    public String toString() {
+        return "{ id : " + id + ", username : \"" + username + "\"}";
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            User u = (User) obj;
+            return Integer.compare(id, u.getId()) == 0;
+        }
+        return false;
+    }
 
     public User() {
     }
 
-    public User(String username) {
+    public User(String phone, String username, String password) {
+        this.phone = phone;
         this.username = username;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -36,19 +57,19 @@ public class User {
         this.username = username;
     }
 
-    @Override
-    public String toString() {
-        return "{ id : " + id + ", username : \"" + username + "\"}";
+    public String getPhone() {
+        return phone;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof User) {
-            User u = (User) obj;
-            return Integer.compare(id, u.getId()) == 0;
-        }
-        return false;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
