@@ -69,7 +69,12 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Log.i("UP:", response);
-                        goTo(AddPaymentActivity.class);
+                        Integer id = null;
+                        if (!response.equals("null"))
+                            id = Integer.parseInt(response);
+                        app.setId(id);
+                        app.setUsername(username);
+                        goTo(DebtsActivity.class);
                     }
                 }, new Response.ErrorListener() {
             @Override
