@@ -55,7 +55,7 @@ public class SignupActivity extends AppCompatActivity {
         Log.i("user", jsonUser);
 
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, app.URL + "users",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, app.URL + "users/",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

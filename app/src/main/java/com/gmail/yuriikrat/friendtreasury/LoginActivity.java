@@ -1,5 +1,6 @@
 package com.gmail.yuriikrat.friendtreasury;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -68,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // Display the first 500 characters of the response string.
                         Log.i("UP:", response);
+                        goTo(AddPaymentActivity.class);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -91,5 +93,16 @@ public class LoginActivity extends AppCompatActivity {
         queue.add(stringRequest);
 
     }
+
+    public void goTo(Class clazz) {
+        Intent intent = new Intent(LoginActivity.this, clazz);
+        startActivity(intent);
+    }
+
+    public void goSignup(View view) {
+        Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+        startActivity(intent);
+    }
+
 
 }
