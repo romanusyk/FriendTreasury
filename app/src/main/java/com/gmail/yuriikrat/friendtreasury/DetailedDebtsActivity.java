@@ -5,33 +5,30 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.gmail.yuriikrat.friendtreasury.domain.User;
+import com.gmail.yuriikrat.friendtreasury.domain.Payment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by romm on 09.05.17.
  */
 
-public class DebtsActivity extends AppCompatActivity {
+public class DetailedDebtsActivity extends AppCompatActivity {
 
     private MyApplication app;
     private RequestQueue queue;
@@ -42,15 +39,14 @@ public class DebtsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_debts);
+        setContentView(R.layout.activity_detailed_debts);
 
         app = (MyApplication) getApplicationContext();
         queue = Volley.newRequestQueue(this);
 
         debts = new LinkedList<>();
 
-        adapter = new ArrayAdapter<String>(this,
-//                R.layout.activity_debts,
+        adapter = new ArrayAdapter<>(this,
                 R.layout.list_view,
                 debts);
 
@@ -58,24 +54,13 @@ public class DebtsActivity extends AppCompatActivity {
         listview.setEnabled(true);
         listview.setAdapter(adapter);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Intent intent = new Intent(DebtsActivity.this, DetailedDebtsActivity.class);
-//                String message = "abc";
-//                intent.putExtra(EXTRA_MESSAGE, message);
-                startActivity(intent);
-            }
-        });
-
         updateDebts();
 
     }
 
     public void updateDebts() {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, app.URL + "user_debts/" + app.getId() + "/",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, app.URL + "user_debts/" + app.getId() + "/" + "2" + "/",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -83,12 +68,12 @@ public class DebtsActivity extends AppCompatActivity {
                         Log.i("Debts:", response);
 
                         Gson gson = new Gson();
-                        Type type = new TypeToken<Map<Integer, BigDecimal>>(){}.getType();
-                        Map<Integer, BigDecimal> debtsMap = gson.fromJson(response, type);
+                        Type type = new TypeToken<List<Payment>>(){}.getType();
+                        List<Payment> debtsList = gson.fromJson(response, type);
 
                         debts.clear();
-                        for (Integer k : debtsMap.keySet()) {
-                            debts.add("" + k + " : " + debtsMap.get(k));
+                        for (Payment p : debtsList) {
+                            debts.add(p.toString());
                         }
                         adapter.notifyDataSetChanged();
 
@@ -105,7 +90,7 @@ public class DebtsActivity extends AppCompatActivity {
     }
 
     public void goLogin(View view) {
-        Intent intent = new Intent(DebtsActivity.this, LoginActivity.class);
+        Intent intent = new Intent(DetailedDebtsActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

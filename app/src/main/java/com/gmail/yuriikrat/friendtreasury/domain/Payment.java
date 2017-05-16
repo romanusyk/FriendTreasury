@@ -3,6 +3,7 @@ package com.gmail.yuriikrat.friendtreasury.domain;
 import android.util.Log;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 /**
  * Created by romm on 06.02.17.
@@ -84,4 +85,8 @@ public class Payment {
         }
     }
 
+    @Override
+    public String toString() {
+        return "(" + userFrom + " -> [" + Arrays.toString(usersTo) + "]) : " + amount;
+    }
 }

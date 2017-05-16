@@ -47,24 +47,24 @@
             android:layout_marginTop="8dp"
             android:text="@string/should_i_pay_for_myself" />
 
-        <!--<DatePicker-->
-            <!--android:id="@+id/dpResult"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginBottom="8dp"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:layout_marginTop="8dp" />-->
-
+        <DatePicker
+            android:id="@+id/dpResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="8dp" />
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_pay"
             android:onClick="addPayment"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
             android:text="Add payment"/>
+
 
     </LinearLayout>
 
