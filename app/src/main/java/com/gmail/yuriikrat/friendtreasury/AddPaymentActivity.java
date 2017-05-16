@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.DatePicker;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -30,8 +31,11 @@ import com.android.volley.toolbox.Volley;
 import com.gmail.yuriikrat.friendtreasury.domain.Payment;
 import com.gmail.yuriikrat.friendtreasury.domain.User;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,7 +85,7 @@ public class AddPaymentActivity extends AppCompatActivity
     public void addPayment(View view) {
 
         Integer meID = app.getId();
-        Integer[] toIDs = new Integer[] {1, 2};
+        Integer[] toIDs = new Integer[] {2};
 
         TextView textView = (TextView) findViewById(R.id.amount);
         BigDecimal amount = new BigDecimal(textView.getText().toString());
@@ -93,9 +97,16 @@ public class AddPaymentActivity extends AppCompatActivity
         textView = (TextView) findViewById(R.id.description);
         String description = textView.getText().toString();
 
-        Payment payment = new Payment(10, toIDs, amount, shallIPayForMyself, null);
+        DatePicker datePicker = (DatePicker) findViewById(R.id.dpResult);
+        Date date = new GregorianCalendar(
+                datePicker.getYear(),
+                datePicker.getMonth(),
+                datePicker.getDayOfMonth()
+        ).getTime();
 
-        Gson gson = new Gson();
+        Payment payment = new Payment(meID, toIDs, amount, description, date, shallIPayForMyself);
+
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MMM-dd").create();
         final String jsonPayment = gson.toJson(payment);
 
         Log.i("payment", jsonPayment);

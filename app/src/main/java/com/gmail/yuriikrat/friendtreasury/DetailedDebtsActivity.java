@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gmail.yuriikrat.friendtreasury.domain.Payment;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -67,7 +68,7 @@ public class DetailedDebtsActivity extends AppCompatActivity {
                         // Display the first 500 characters of the response string.
                         Log.i("Debts:", response);
 
-                        Gson gson = new Gson();
+                        Gson gson = new GsonBuilder().setDateFormat("yyyy-MMM-dd").create();
                         Type type = new TypeToken<List<Payment>>(){}.getType();
                         List<Payment> debtsList = gson.fromJson(response, type);
 

@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                             id = Integer.parseInt(response);
                         app.setId(id);
                         app.setUsername(username);
-                        goTo(AddPaymentActivity.class);
+                        goTo(DebtsActivity.class);
                     }
                 }, new Response.ErrorListener() {
             @Override

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Created by romm on 06.02.17.
@@ -17,23 +18,27 @@ public class Payment {
 
     private String description;
 
+    private Date date;
+
     public Payment() {
     }
 
-    public Payment(Integer userFrom, Integer[] usersTo, BigDecimal amount, String description) {
+    public Payment(Integer userFrom, Integer[] usersTo, BigDecimal amount, String description, Date date) {
         this.userFrom = userFrom;
         this.usersTo = usersTo;
         this.amount = amount;
         this.description = description;
         this.shallIPayForMyself = 1;
+        this.date = date;
     }
 
-    public Payment(Integer userFrom, Integer[] usersTo, BigDecimal amount, Integer shallIPayForMyself, String description) {
+    public Payment(Integer userFrom, Integer[] usersTo, BigDecimal amount, String description, Date date, Integer shallIPayForMyself) {
         this.userFrom = userFrom;
         this.usersTo = usersTo;
         this.amount = amount;
         this.shallIPayForMyself = shallIPayForMyself;
         this.description = description;
+        this.date = date;
     }
 
     public void validate() {
@@ -74,6 +79,14 @@ public class Payment {
 
     public Integer getShallIPayForMyself() {
         return shallIPayForMyself;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setShallIPayForMyself(Integer shallIPayForMyself) {
