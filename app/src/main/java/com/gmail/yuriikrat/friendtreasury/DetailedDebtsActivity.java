@@ -61,7 +61,7 @@ public class DetailedDebtsActivity extends AppCompatActivity {
 
     public void updateDebts() {
         // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, app.URL + "user_debts/" + app.getId() + "/" + "2" + "/",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, app.URL + "user_debts/" + app.getId() + "/" + app.getAnotherUserID() + "/",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

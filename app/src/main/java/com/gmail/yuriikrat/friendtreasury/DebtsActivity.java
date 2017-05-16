@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -36,6 +37,7 @@ public class DebtsActivity extends AppCompatActivity {
     private MyApplication app;
     private RequestQueue queue;
 
+    private Map<Integer, BigDecimal> debtsMap;
     private LinkedList<String> debts;
     private ArrayAdapter adapter;
 
@@ -63,17 +65,20 @@ public class DebtsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 Intent intent = new Intent(DebtsActivity.this, DetailedDebtsActivity.class);
-//                String message = "abc";
-//                intent.putExtra(EXTRA_MESSAGE, message);
+                Iterator<Integer> iterator = debtsMap.keySet().iterator();
+                while (iterator.hasNext() && position > 0) {
+                    iterator.next();
+                }
+                app.setAnotherUserID(iterator.next());
                 startActivity(intent);
             }
         });
 
-        updateDebts();
+        updateDebtsMap();
 
     }
 
-    public void updateDebts() {
+    public void updateDebtsMap() {
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, app.URL + "user_debts/" + app.getId() + "/",
                 new Response.Listener<String>() {
@@ -84,14 +89,8 @@ public class DebtsActivity extends AppCompatActivity {
 
                         Gson gson = new Gson();
                         Type type = new TypeToken<Map<Integer, BigDecimal>>(){}.getType();
-                        Map<Integer, BigDecimal> debtsMap = gson.fromJson(response, type);
-
-                        debts.clear();
-                        for (Integer k : debtsMap.keySet()) {
-                            debts.add("" + k + " : " + debtsMap.get(k));
-                        }
-                        adapter.notifyDataSetChanged();
-
+                        debtsMap = gson.fromJson(response, type);
+                        updateDebts();
 
                     }
                 }, new Response.ErrorListener() {
@@ -102,6 +101,14 @@ public class DebtsActivity extends AppCompatActivity {
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+    }
+
+    public void updateDebts() {
+        debts.clear();
+        for (Integer k : debtsMap.keySet()) {
+            debts.add("" + k + " : " + debtsMap.get(k));
+        }
+        adapter.notifyDataSetChanged();
     }
 
     public void goLogin(View view) {
