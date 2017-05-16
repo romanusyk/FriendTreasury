@@ -1,12 +1,18 @@
 package com.gmail.yuriikrat.friendtreasury;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -30,6 +36,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gmail.yuriikrat.friendtreasury.domain.Payment;
 import com.gmail.yuriikrat.friendtreasury.domain.User;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -40,7 +52,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddPaymentActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private MyApplication app;
     private RequestQueue queue;
@@ -60,6 +72,10 @@ public class AddPaymentActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         app = (MyApplication) getApplicationContext();
         queue = Volley.newRequestQueue(this);
@@ -85,7 +101,7 @@ public class AddPaymentActivity extends AppCompatActivity
     public void addPayment(View view) {
 
         Integer meID = app.getId();
-        Integer[] toIDs = new Integer[] {2};
+        Integer[] toIDs = new Integer[]{2};
 
         TextView textView = (TextView) findViewById(R.id.amount);
         BigDecimal amount = new BigDecimal(textView.getText().toString());
@@ -132,12 +148,46 @@ public class AddPaymentActivity extends AppCompatActivity
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> params = new HashMap();
-                params.put("Content-Type","application/json");
+                Map<String, String> params = new HashMap();
+                params.put("Content-Type", "application/json");
                 return params;
             }
         };
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        Log.i("Location", "Called!");
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            Log.e("Location", "Bida");
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
+        Log.i("Location", "(" + location.getLatitude() + ", " + location.getLongitude() + ")");
+        if (location != null)
+        {
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
+                    .zoom(17)                   // Sets the zoom
+                    .bearing(90)                // Sets the orientation of the camera to east
+                    .tilt(40)                   // Sets the tilt of the camera to 30 degrees
+                    .build();                   // Creates a CameraPosition from the builder
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+//            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
     }
 }
