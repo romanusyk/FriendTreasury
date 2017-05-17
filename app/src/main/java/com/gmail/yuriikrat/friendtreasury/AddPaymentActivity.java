@@ -1,5 +1,7 @@
 package com.gmail.yuriikrat.friendtreasury;
 
+import android.*;
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -36,12 +38,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gmail.yuriikrat.friendtreasury.domain.Payment;
 import com.gmail.yuriikrat.friendtreasury.domain.User;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -49,14 +55,20 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class AddPaymentActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private MyApplication app;
     private RequestQueue queue;
 
+    private GoogleApiClient mGoogleApiClient;
+    private GoogleMap map;
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,12 +85,48 @@ public class AddPaymentActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                Log.d("Callback", "OnMapReadyCallback called.");
+                map = googleMap;
+                map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker").snippet("Snippet"));
+                map.setMyLocationEnabled(true);
+            }
+        });
 
         app = (MyApplication) getApplicationContext();
         queue = Volley.newRequestQueue(this);
+
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d("Callback", "onStart called.");
+        mGoogleApiClient.connect();
+        super.onStart();
+    }
+
+    public void connect(View view) {
+        Log.d("Callback", "connect called.");
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("Callback", "onStart called.");
+        mGoogleApiClient.disconnect();
+        super.onStop();
     }
 
     @Override
@@ -120,7 +168,10 @@ public class AddPaymentActivity extends AppCompatActivity
                 datePicker.getDayOfMonth()
         ).getTime();
 
-        Payment payment = new Payment(meID, toIDs, amount, description, date, shallIPayForMyself);
+        LatLng latLng = map.getCameraPosition().target;
+
+        Payment payment = new Payment(meID, toIDs, amount, description,
+                date, latLng.longitude, latLng.latitude, shallIPayForMyself);
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MMM-dd").create();
         final String jsonPayment = gson.toJson(payment);
@@ -158,36 +209,27 @@ public class AddPaymentActivity extends AppCompatActivity
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        Log.i("Location", "Called!");
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    public void onConnected(Bundle connectionHint) {
+        Log.d("Callback", "onConnected called.");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            Log.e("Location", "Bida");
+            Log.e("PERMISSION", "NO");
             return;
         }
-        Location location = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false));
-        Log.i("Location", "(" + location.getLatitude() + ", " + location.getLongitude() + ")");
-        if (location != null)
-        {
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13));
-
-            CameraPosition cameraPosition = new CameraPosition.Builder()
-                    .target(new LatLng(location.getLatitude(), location.getLongitude()))      // Sets the center of the map to location user
-                    .zoom(17)                   // Sets the zoom
-                    .bearing(90)                // Sets the orientation of the camera to east
-                    .tilt(40)                   // Sets the tilt of the camera to 30 degrees
-                    .build();                   // Creates a CameraPosition from the builder
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-//            googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (mLastLocation != null) {
+            Log.d("LOCATION", "SUCcESS");
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude()), 5));
         }
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }

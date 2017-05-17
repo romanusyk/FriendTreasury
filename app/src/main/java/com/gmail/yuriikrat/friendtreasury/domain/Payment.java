@@ -20,25 +20,34 @@ public class Payment {
 
     private Date date;
 
+    private double longitude;
+    private double latitude;
+
     public Payment() {
     }
 
-    public Payment(Integer userFrom, Integer[] usersTo, BigDecimal amount, String description, Date date) {
+    public Payment(Integer userFrom, Integer[] usersTo, BigDecimal amount, String description,
+                   Date date, double longitude, double latitude) {
         this.userFrom = userFrom;
         this.usersTo = usersTo;
         this.amount = amount;
         this.description = description;
         this.shallIPayForMyself = 1;
         this.date = date;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
-    public Payment(Integer userFrom, Integer[] usersTo, BigDecimal amount, String description, Date date, Integer shallIPayForMyself) {
+    public Payment(Integer userFrom, Integer[] usersTo, BigDecimal amount, String description,
+                   Date date, double longitude, double latitude, Integer shallIPayForMyself) {
         this.userFrom = userFrom;
         this.usersTo = usersTo;
         this.amount = amount;
         this.shallIPayForMyself = shallIPayForMyself;
         this.description = description;
         this.date = date;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public void validate() {
@@ -101,5 +110,21 @@ public class Payment {
     @Override
     public String toString() {
         return "(" + userFrom + " -> [" + Arrays.toString(usersTo) + "]) : " + amount;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
     }
 }

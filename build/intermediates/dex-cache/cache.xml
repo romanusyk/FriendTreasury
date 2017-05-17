@@ -358,7 +358,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="7cf2c400409b565d450e4100ddaab483771dc18b">
+        sha1="f509d5188caab639f0e678fb29078b655f9b8630">
         <dex dex="/home/romm/code/Java/FriendTreasury/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_42d7dd2c4c6de4a2af47593d3792d6139d340c3f/classes.dex" />
     </item>
     <item

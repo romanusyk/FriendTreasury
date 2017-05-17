@@ -1,8 +1,12 @@
 package com.gmail.yuriikrat.friendtreasury;
 
+import android.*;
+import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -34,7 +38,6 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
 
     private MyApplication app;
-
     private RequestQueue queue;
 
     @Override
@@ -43,8 +46,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         app = (MyApplication) getApplicationContext();
-
         queue = Volley.newRequestQueue(this);
+
     }
 
     public void validate(View view) {
