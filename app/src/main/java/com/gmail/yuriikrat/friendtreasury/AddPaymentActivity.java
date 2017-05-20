@@ -68,6 +68,14 @@ public class AddPaymentActivity extends AppCompatActivity
     private GoogleApiClient mGoogleApiClient;
     private GoogleMap map;
 
+    private static final String[] INITIAL_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    private static final int INITIAL_REQUEST=1337;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +109,7 @@ public class AddPaymentActivity extends AppCompatActivity
                 Log.d("Callback", "OnMapReadyCallback called.");
                 map = googleMap;
                 map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker").snippet("Snippet"));
+                requestPermissions(INITIAL_PERMS, INITIAL_REQUEST);
                 map.setMyLocationEnabled(true);
             }
         });
@@ -211,6 +220,7 @@ public class AddPaymentActivity extends AppCompatActivity
     @Override
     public void onConnected(Bundle connectionHint) {
         Log.d("Callback", "onConnected called.");
+        requestPermissions(INITIAL_PERMS, INITIAL_REQUEST);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             Log.e("PERMISSION", "NO");

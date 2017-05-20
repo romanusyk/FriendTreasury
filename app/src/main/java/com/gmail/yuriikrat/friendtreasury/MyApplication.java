@@ -10,8 +10,8 @@ import java.util.List;
 
 public class MyApplication extends Application {
 
-    //    public final String URL = "http://afternoon-reaches-25317.herokuapp.com/";
-    public final String URL = "http://10.0.2.2:8080/";
+    public final String URL = "http://afternoon-reaches-25317.herokuapp.com/";
+//    public final String URL = "http://10.0.2.2:8080/";
 
     private Integer id;
     private String username;
